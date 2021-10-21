@@ -1,33 +1,36 @@
 package com.example.cryptoreview
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
+import android.widget.TextView
 import android.widget.Toast
-import com.example.cryptoreview.api.ApiFactory
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.schedulers.Schedulers
+import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProviders
 
 class MainActivity : AppCompatActivity() {
 
-    private val compositeDisposable = CompositeDisposable()
+    private lateinit var textView: TextView
+    private lateinit var viewModel: CoinViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        val disposable = ApiFactory.apiService.getFullPriceList(fromSybols = "BTC, ETH, EOS")
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({
-                       Toast.makeText(applicationContext, it.toString(), Toast.LENGTH_SHORT).show()
-            },{
-                Toast.makeText(applicationContext, it.message, Toast.LENGTH_SHORT).show()
+        textView = findViewById(R.id.textView)
+        try {
+            viewModel = ViewModelProviders.of(this).get(CoinViewModel()::class.java)
+            viewModel.createDatabase(application)
+            viewModel.liveDataPriceList.observe(this, {
+                textView.text = it.toString()
             })
-        compositeDisposable.addAll(disposable)
+            viewModel.getDetailInfo("BTC").observe(this, {
+                textView.text = it.toString()
+            })
+        } catch(e: Exception) {
+            textView.text = e.message
+        }
+
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        compositeDisposable.dispose()
-    }
 }
