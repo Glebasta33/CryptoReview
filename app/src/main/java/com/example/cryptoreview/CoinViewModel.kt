@@ -43,9 +43,9 @@ class CoinViewModel() : ViewModel() {
                 .subscribeOn(Schedulers.io())
                 .subscribe({
                     db.coinPriceInfoDao().insertPriceList(it)
-                    Log.d("TEST_OF_LOADING_DATA", it.toString())
+                    Log.v("TEST_OF_LOADING_DATA", it.toString())
                 }, {
-                    Log.d("TEST_OF_LOADING_DATA", it.message.toString())
+                    Log.v("TEST_OF_LOADING_DATA", it.message.toString())
                 })
         compositeDisposable.addAll(disposable)
     }
