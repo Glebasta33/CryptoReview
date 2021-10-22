@@ -48,8 +48,8 @@ class CoinDetailActivity : AppCompatActivity() {
             tvFromSymbols.text = it.fromsymbol
             tvToSymbols.text = it.tosymbol
             tvPrice.text = it.price.toString()
-            tvMinPrice.text = it.highday.toString()
-            tvMaxPrice.text = it.lowday.toString()
+            tvMinPrice.text = it.lowday.toString()
+            tvMaxPrice.text = it.highday.toString()
             tvLastTrade.text = it.market
             tvLastUpdate.text = it.getFormattedTime()
         })
