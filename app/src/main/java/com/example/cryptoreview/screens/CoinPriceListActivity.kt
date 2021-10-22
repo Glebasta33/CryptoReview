@@ -1,8 +1,6 @@
 package com.example.cryptoreview.screens
 
-import android.content.Intent
 import android.os.Bundle
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.RecyclerView
@@ -23,9 +21,7 @@ class CoinPriceListActivity : AppCompatActivity() {
         val adapter = CoinInfoAdapter(this)
         adapter.onCoinClickListener = object : CoinInfoAdapter.OnCoinClickListener {
             override fun onCoinClick(coinPriceInfo: CoinPriceInfo) {
-                val intent = Intent(this@CoinPriceListActivity, CoinDetailActivity::class.java)
-                intent.putExtra(CoinDetailActivity.EXTRA_FROM_SYMBOL, "BTC")
-                startActivity(intent)
+                startActivity(CoinDetailActivity.newIntent(this@CoinPriceListActivity, coinPriceInfo.fromsymbol))
             }
         }
         rvCoinPriceList.adapter = adapter
