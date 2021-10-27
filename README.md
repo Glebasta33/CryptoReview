@@ -6,3 +6,5 @@ Screenshots:
 
 ![alt text](https://github.com/Glebasta33/CryptoReview/raw/master/src/main/res/drawable/main.png "Main screen")
 ![alt text](https://github.com/Glebasta33/CryptoReview/raw/master/src/main/res/drawable/detail.png "Detail screen")
+
+![Image alt](https://github.com/Glebasta33/CryptoReview/raw/master/src/main/res/drawable/main.png)
