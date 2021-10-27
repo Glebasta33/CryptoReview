@@ -1,5 +1,5 @@
 # CryptoReview
-The app displays information about the most popular cryptocurrencies and updates the data in real time.
+The app displays information about the most popular cryptocurrencies and updates the data in real time using API cryptocompare.com.
 
 Technologies: RxJava 2, Retrofit 2, Room, Picasso, MVVM.
 
