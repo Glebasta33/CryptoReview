@@ -1,4 +1,4 @@
-package com.example.cryptoreview.pojo
+package com.example.cryptoreview.data.model
 
 import com.google.gson.annotations.Expose
 

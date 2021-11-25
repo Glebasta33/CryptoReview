@@ -1,4 +1,4 @@
-package com.example.cryptoreview.adapter
+package com.example.cryptoreview.presentation.adapters
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -8,7 +8,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.cryptoreview.R
-import com.example.cryptoreview.pojo.CoinPriceInfo
+import com.example.cryptoreview.data.model.CoinPriceInfo
 import com.squareup.picasso.Picasso
 
 class CoinInfoAdapter(private val context: Context) : RecyclerView.Adapter<CoinInfoAdapter.CoinInfoViewHolder>() {

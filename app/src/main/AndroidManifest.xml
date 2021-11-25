@@ -11,8 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.CryptoReview">
-        <activity android:name=".screens.CoinDetailActivity"></activity>
-        <activity android:name=".screens.CoinPriceListActivity">
+        <activity android:name=".presentation.CoinDetailActivity"></activity>
+        <activity android:name=".presentation.CoinPriceListActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
