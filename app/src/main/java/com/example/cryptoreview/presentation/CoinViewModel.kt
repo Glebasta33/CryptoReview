@@ -1,13 +1,13 @@
-package com.example.cryptoreview
+package com.example.cryptoreview.presentation
 
 import android.app.Application
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
-import com.example.cryptoreview.api.ApiFactory
-import com.example.cryptoreview.database.AppDatabase
-import com.example.cryptoreview.pojo.CoinPriceInfo
-import com.example.cryptoreview.pojo.CoinPriceInfoRawData
+import com.example.cryptoreview.data.network.ApiFactory
+import com.example.cryptoreview.data.database.AppDatabase
+import com.example.cryptoreview.data.model.CoinPriceInfo
+import com.example.cryptoreview.data.model.CoinPriceInfoRawData
 import com.google.gson.Gson
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
@@ -19,7 +19,7 @@ class CoinViewModel() : ViewModel() {
     private lateinit var db: AppDatabase
     lateinit var liveDataPriceList: LiveData<List<CoinPriceInfo>>
 
-    fun getDetailInfo(fSym: String): LiveData<CoinPriceInfo > {
+    fun getDetailInfo(fSym: String): LiveData<CoinPriceInfo> {
         return db.coinPriceInfoDao().getPriceInfoAboutCoin(fSym)
     }
 

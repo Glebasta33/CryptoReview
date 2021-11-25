@@ -1,8 +1,8 @@
-package com.example.cryptoreview.pojo
+package com.example.cryptoreview.data.model
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.example.cryptoreview.api.ApiFactory.BASE_IMAGE_URL
+import com.example.cryptoreview.data.network.ApiFactory.BASE_IMAGE_URL
 import com.example.cryptoreview.utils.convertTimestampToTime
 import com.google.gson.annotations.Expose
 

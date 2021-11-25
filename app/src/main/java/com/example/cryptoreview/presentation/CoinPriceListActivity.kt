@@ -1,13 +1,12 @@
-package com.example.cryptoreview.screens
+package com.example.cryptoreview.presentation
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.RecyclerView
-import com.example.cryptoreview.CoinViewModel
 import com.example.cryptoreview.R
-import com.example.cryptoreview.adapter.CoinInfoAdapter
-import com.example.cryptoreview.pojo.CoinPriceInfo
+import com.example.cryptoreview.presentation.adapters.CoinInfoAdapter
+import com.example.cryptoreview.data.model.CoinPriceInfo
 
 class CoinPriceListActivity : AppCompatActivity() {
 
@@ -21,7 +20,12 @@ class CoinPriceListActivity : AppCompatActivity() {
         val adapter = CoinInfoAdapter(this)
         adapter.onCoinClickListener = object : CoinInfoAdapter.OnCoinClickListener {
             override fun onCoinClick(coinPriceInfo: CoinPriceInfo) {
-                startActivity(CoinDetailActivity.newIntent(this@CoinPriceListActivity, coinPriceInfo.fromsymbol))
+                startActivity(
+                    CoinDetailActivity.newIntent(
+                        this@CoinPriceListActivity,
+                        coinPriceInfo.fromsymbol
+                    )
+                )
             }
         }
         rvCoinPriceList.adapter = adapter

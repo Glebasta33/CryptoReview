@@ -1,14 +1,12 @@
-package com.example.cryptoreview.screens
+package com.example.cryptoreview.presentation
 
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProviders
-import com.example.cryptoreview.CoinViewModel
 import com.example.cryptoreview.R
 import com.squareup.picasso.Picasso
 
