@@ -43,11 +43,11 @@ class CoinDetailActivity : AppCompatActivity() {
         viewModel.createDatabase(application)
         viewModel.getDetailInfo(fromSymbol ?: "BTC").observe(this, {
             Picasso.get().load(it.getFullImageUrl()).into(ivLogoCoin)
-            tvFromSymbols.text = it.fromsymbol
-            tvToSymbols.text = it.tosymbol
+            tvFromSymbols.text = it.fromSymbol
+            tvToSymbols.text = it.toSymbol
             tvPrice.text = it.price.toString()
-            tvMinPrice.text = it.lowday.toString()
-            tvMaxPrice.text = it.highday.toString()
+            tvMinPrice.text = it.lowDay.toString()
+            tvMaxPrice.text = it.highDay.toString()
             tvLastTrade.text = it.market
             tvLastUpdate.text = it.getFormattedTime()
         })
