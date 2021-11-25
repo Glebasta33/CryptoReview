@@ -2,7 +2,6 @@ package com.example.cryptoreview.data.network
 
 import com.example.cryptoreview.data.network.model.CoinNamesListDto
 import com.example.cryptoreview.data.network.model.CoinInfoJsonContainerDto
-import io.reactivex.Single
 import retrofit2.http.GET
 import retrofit2.http.Query
 
