@@ -11,8 +11,6 @@ import com.squareup.picasso.Picasso
 
 class CoinDetailActivity : AppCompatActivity() {
 
-    private lateinit var viewModel: CoinViewModel
-
     private val binding by lazy {
         ActivityCoinDetailBinding.inflate(layoutInflater)
     }
@@ -25,20 +23,11 @@ class CoinDetailActivity : AppCompatActivity() {
             return
         }
         val fromSymbol = intent.getStringExtra(FROM_SYMBOL) ?: EMPTY_SYMBOL
-        viewModel = ViewModelProvider(this)[CoinViewModel::class.java]
-        viewModel.getDetailInfo(fromSymbol).observe(this) {
-            with(binding) {
-                tvFromSymbols.text = it.fromSymbol
-                tvToSymbols.text = it.toSymbol
-                tvPrice.text = it.price.toString()
-                tvMinPrice.text = it.lowDay.toString()
-                tvMaxPrice.text = it.highDay.toString()
-                tvLastTrade.text = it.lastMarket
-                tvLastUpdate.text = it.lastUpdate
-                Picasso.get().load(it.imageUrl).into(ivLogoCoin)
-            }
+        if (savedInstanceState == null) {
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.fragment_container, CoinDetailFragment.newInstance(fromSymbol))
+                .commit()
         }
-
     }
 
     companion object {
