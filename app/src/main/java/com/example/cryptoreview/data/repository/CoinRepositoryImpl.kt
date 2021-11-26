@@ -3,9 +3,12 @@ package com.example.cryptoreview.data.repository
 import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
+import androidx.work.ExistingWorkPolicy
+import androidx.work.WorkManager
 import com.example.cryptoreview.data.database.AppDatabase
 import com.example.cryptoreview.data.mappers.CoinMapper
 import com.example.cryptoreview.data.network.ApiFactory
+import com.example.cryptoreview.data.services.RefreshDataWorker
 import com.example.cryptoreview.domain.CoinInfoEntity
 import com.example.cryptoreview.domain.CoinRepository
 import kotlinx.coroutines.delay
@@ -33,21 +36,12 @@ class CoinRepositoryImpl(
 
     }
 
-    override suspend fun loadData() {
-        while (true) {
-            try {
-                val topCoins = apiService.getTopCoinsInfo(limit = 50)
-                val fSyms = mapper.mapNamesListToString(topCoins)
-                val jsonContainer = apiService.getFullPriceList(fromSymbols = fSyms)
-                val dtoList = mapper.mapJsonContainerToList(jsonContainer)
-                val dbModelList = dtoList.map {
-                    mapper.mapDtoToDbModel(it)
-                }
-                coinInfoDao.insertPriceList(dbModelList)
-            } catch (e: Exception) {
-            }
-            delay(10_000)
-        }
-
+    override fun loadData() {
+        val workManager = WorkManager.getInstance(application)
+        workManager.enqueueUniqueWork(
+            RefreshDataWorker.NAME,
+            ExistingWorkPolicy.REPLACE,
+            RefreshDataWorker.makeRequest() // 21:58
+        )
     }
 }
