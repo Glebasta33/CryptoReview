@@ -2,11 +2,13 @@ package com.example.cryptoreview.presentation
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
+
 import androidx.recyclerview.widget.RecyclerView
 import com.example.cryptoreview.R
 import com.example.cryptoreview.presentation.adapters.CoinInfoAdapter
-import com.example.cryptoreview.data.network.model.CoinInfoDto
+
+import com.example.cryptoreview.domain.CoinInfoEntity
 
 class CoinPriceListActivity : AppCompatActivity() {
 
@@ -19,21 +21,20 @@ class CoinPriceListActivity : AppCompatActivity() {
         rvCoinPriceList = findViewById(R.id.rvCoinPriceList)
         val adapter = CoinInfoAdapter(this)
         adapter.onCoinClickListener = object : CoinInfoAdapter.OnCoinClickListener {
-            override fun onCoinClick(coinPriceInfo: CoinInfoDto) {
+            override fun onCoinClick(coinInfo: CoinInfoEntity) {
                 startActivity(
                     CoinDetailActivity.newIntent(
                         this@CoinPriceListActivity,
-                        coinPriceInfo.fromSymbol
+                        coinInfo.fromSymbol
                     )
                 )
             }
         }
         rvCoinPriceList.adapter = adapter
-        viewModel = ViewModelProviders.of(this).get(CoinViewModel()::class.java)
-        viewModel.createDatabase(application)
-        viewModel.liveDataPriceList.observe(this, {
+        viewModel = ViewModelProvider(this)[CoinViewModel::class.java]
+        viewModel.coinInfoList.observe(this) {
             adapter.coinInfoList = it
-        })
+        }
 
     }
 }
