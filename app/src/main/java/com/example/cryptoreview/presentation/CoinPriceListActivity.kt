@@ -14,7 +14,6 @@ import com.example.cryptoreview.domain.CoinInfoEntity
 class CoinPriceListActivity : AppCompatActivity() {
 
     private lateinit var viewModel: CoinViewModel
-
     private val binding by lazy {
         ActivityCoinPriceListBinding.inflate(layoutInflater)
     }
@@ -26,12 +25,11 @@ class CoinPriceListActivity : AppCompatActivity() {
         val adapter = CoinInfoAdapter(this)
         adapter.onCoinClickListener = object : CoinInfoAdapter.OnCoinClickListener {
             override fun onCoinClick(coinInfo: CoinInfoEntity) {
-                startActivity(
-                    CoinDetailActivity.newIntent(
-                        this@CoinPriceListActivity,
-                        coinInfo.fromSymbol
-                    )
-                )
+                if (binding.fragmentContainer == null) {
+                    launchDetailActivity(coinInfo.fromSymbol)
+                } else {
+                    launchDetailFragment(coinInfo.fromSymbol)
+                }
             }
         }
         binding.rvCoinPriceList.adapter = adapter
@@ -39,6 +37,18 @@ class CoinPriceListActivity : AppCompatActivity() {
         viewModel.coinInfoList.observe(this) {
             adapter.submitList(it)
         }
+    }
 
+    private fun launchDetailActivity(fromSymbol: String) {
+        startActivity(CoinDetailActivity.newIntent(this@CoinPriceListActivity, fromSymbol))
+    }
+
+    private fun launchDetailFragment(fromSymbol: String) {
+        supportFragmentManager.popBackStack() // delete previous
+        supportFragmentManager
+            .beginTransaction()
+            .replace(R.id.fragment_container, CoinDetailFragment.newInstance(fromSymbol))
+            .addToBackStack(null)
+            .commit()
     }
 }
