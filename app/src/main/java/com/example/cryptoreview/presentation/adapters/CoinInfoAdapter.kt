@@ -8,9 +8,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.cryptoreview.R
-import com.example.cryptoreview.data.network.ApiFactory.BASE_IMAGE_URL
 import com.example.cryptoreview.domain.CoinInfoEntity
-import com.example.cryptoreview.utils.convertTimestampToTime
 import com.squareup.picasso.Picasso
 
 class CoinInfoAdapter(private val context: Context) : RecyclerView.Adapter<CoinInfoAdapter.CoinInfoViewHolder>() {
@@ -37,9 +35,9 @@ class CoinInfoAdapter(private val context: Context) : RecyclerView.Adapter<CoinI
             tvValue.text = coin.price.toString()
             tvLastUpdateTime.text = String.format(
                 lastUpdateTemplate,
-                convertTimestampToTime(coin.lastUpdate)
+                coin.lastUpdate
             )
-            Picasso.get().load(BASE_IMAGE_URL + coin.imageUrl).into(ivLogoCoin)
+            Picasso.get().load(coin.imageUrl).into(ivLogoCoin)
         }
         holder.itemView.setOnClickListener {
             onCoinClickListener?.onCoinClick(coin)

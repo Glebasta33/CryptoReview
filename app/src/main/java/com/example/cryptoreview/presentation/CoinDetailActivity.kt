@@ -7,10 +7,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
-
 import com.example.cryptoreview.R
-import com.example.cryptoreview.data.network.ApiFactory.BASE_IMAGE_URL
-import com.example.cryptoreview.utils.convertTimestampToTime
 import com.squareup.picasso.Picasso
 
 class CoinDetailActivity : AppCompatActivity() {
@@ -22,7 +19,7 @@ class CoinDetailActivity : AppCompatActivity() {
     private lateinit var tvPrice: TextView
     private lateinit var tvMinPrice: TextView
     private lateinit var tvMaxPrice: TextView
-    private lateinit var tvLastTrade: TextView
+    private lateinit var tvLastMarket: TextView
     private lateinit var tvLastUpdate: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,7 +31,7 @@ class CoinDetailActivity : AppCompatActivity() {
         tvPrice = findViewById(R.id.tvPrice)
         tvMinPrice = findViewById(R.id.tvMinPrice)
         tvMaxPrice = findViewById(R.id.tvMaxPrice)
-        tvLastTrade = findViewById(R.id.tvLastTrade)
+        tvLastMarket = findViewById(R.id.tvLastTrade)
         tvLastUpdate = findViewById(R.id.tvLastUpdate)
 
         if (!intent.hasExtra(FROM_SYMBOL)) {
@@ -49,9 +46,9 @@ class CoinDetailActivity : AppCompatActivity() {
             tvPrice.text = it.price.toString()
             tvMinPrice.text = it.lowDay.toString()
             tvMaxPrice.text = it.highDay.toString()
-            tvLastTrade.text = it.lastMarket
-            tvLastUpdate.text = convertTimestampToTime(it.lastUpdate)
-            Picasso.get().load(BASE_IMAGE_URL + it.imageUrl).into(ivLogoCoin)
+            tvLastMarket.text = it.lastMarket
+            tvLastUpdate.text = it.lastUpdate
+            Picasso.get().load(it.imageUrl).into(ivLogoCoin)
         }
 
 
