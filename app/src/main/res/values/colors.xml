@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="purple_200">#000</color>
     <color name="colorPrimaryDark">#000</color>
     <color name="colorPrimary">#FF3700B3</color>
     <color name="colorAccent">#FF03DAC5</color>
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <color name="crypto_currency_name">#FF5E35B1</color>
+    <color name="currency_name">#43A047</color>
 </resources>
