@@ -50,10 +50,10 @@ class CoinMapper {
     fun mapDbModelToEntity(dbModel: CoinInfoDbModel) = CoinInfoEntity(
         fromSymbol = dbModel.fromSymbol,
         toSymbol = dbModel.toSymbol,
-        price = cutPriceLength(dbModel.price),
+        price = cutPriceLength(dbModel.price, 7),
         lastUpdate = convertTimestampToTime(dbModel.lastUpdate),
-        highDay = dbModel.highDay,
-        lowDay = dbModel.lowDay,
+        highDay = cutPriceLength(dbModel.highDay, 12),
+        lowDay = cutPriceLength(dbModel.lowDay, 12),
         lastMarket = dbModel.lastMarket,
         imageUrl = dbModel.imageUrl
     )
@@ -68,8 +68,9 @@ class CoinMapper {
         return simpleDateFormat.format(date)
     }
 
-    private fun cutPriceLength(price: Double?): Double? {
-        val priceAsString = String.format("%.7f", price)
+    private fun cutPriceLength(price: Double?, numbersAfterDot: Int): Double? {
+        val format = "%.${numbersAfterDot}f"
+        val priceAsString = String.format(format, price)
         return priceAsString.toDoubleOrNull()
     }
 
