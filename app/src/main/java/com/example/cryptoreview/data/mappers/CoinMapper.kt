@@ -50,7 +50,7 @@ class CoinMapper {
     fun mapDbModelToEntity(dbModel: CoinInfoDbModel) = CoinInfoEntity(
         fromSymbol = dbModel.fromSymbol,
         toSymbol = dbModel.toSymbol,
-        price = dbModel.price,
+        price = cutPriceLength(dbModel.price),
         lastUpdate = convertTimestampToTime(dbModel.lastUpdate),
         highDay = dbModel.highDay,
         lowDay = dbModel.lowDay,
@@ -66,6 +66,11 @@ class CoinMapper {
         val simpleDateFormat = SimpleDateFormat(pattern, Locale.getDefault())
         simpleDateFormat.timeZone = TimeZone.getDefault()
         return simpleDateFormat.format(date)
+    }
+
+    private fun cutPriceLength(price: Double?): Double? {
+        val priceAsString = String.format("%.7f", price)
+        return priceAsString.toDoubleOrNull()
     }
 
     companion object {
