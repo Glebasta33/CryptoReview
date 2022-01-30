@@ -16,4 +16,10 @@ class DataModule {
         return AppDatabase.getInstance(application).coinPriceInfoDao()
     }
 
+    companion object {
+        @Provides
+        fun provideApiService(): ApiService {
+            return ApiFactory.apiService
+        }
+    }
 }
