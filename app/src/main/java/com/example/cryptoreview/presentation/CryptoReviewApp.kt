@@ -2,17 +2,14 @@ package com.example.cryptoreview.presentation
 
 import android.app.Application
 import androidx.work.Configuration
-import com.example.cryptoreview.data.database.AppDatabase
-import com.example.cryptoreview.data.mappers.CoinMapper
-import com.example.cryptoreview.data.network.ApiFactory
-import com.example.cryptoreview.data.services.RefreshDataWorkerFactory
+import com.example.cryptoreview.data.workers.CryptoReviewWorkerFactory
 import com.example.cryptoreview.di.DaggerApplicationComponent
 import javax.inject.Inject
 
 class CryptoReviewApp : Application(), Configuration.Provider {
 
     @Inject
-    lateinit var workerFactory: RefreshDataWorkerFactory
+    lateinit var workerFactory: CryptoReviewWorkerFactory
 
     val component by lazy {
         DaggerApplicationComponent.factory()

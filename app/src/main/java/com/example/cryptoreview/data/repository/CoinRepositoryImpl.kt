@@ -5,14 +5,12 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
 import androidx.work.ExistingWorkPolicy
 import androidx.work.WorkManager
-import com.example.cryptoreview.data.database.AppDatabase
 import com.example.cryptoreview.data.database.CoinInfoDao
 import com.example.cryptoreview.data.mappers.CoinMapper
 import com.example.cryptoreview.data.network.ApiFactory
-import com.example.cryptoreview.data.services.RefreshDataWorker
+import com.example.cryptoreview.data.workers.RefreshDataWorker
 import com.example.cryptoreview.domain.CoinInfoEntity
 import com.example.cryptoreview.domain.CoinRepository
-import kotlinx.coroutines.delay
 import javax.inject.Inject
 
 class CoinRepositoryImpl @Inject constructor(

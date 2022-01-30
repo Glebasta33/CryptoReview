@@ -1,15 +1,13 @@
-package com.example.cryptoreview.data.services
+package com.example.cryptoreview.data.workers
 
 import android.content.Context
 import androidx.work.*
-import com.example.cryptoreview.data.database.AppDatabase
 import com.example.cryptoreview.data.database.CoinInfoDao
 import com.example.cryptoreview.data.mappers.CoinMapper
-import com.example.cryptoreview.data.network.ApiFactory
 import com.example.cryptoreview.data.network.ApiService
 import kotlinx.coroutines.delay
+import javax.inject.Inject
 
-// система сама создаёт Worker. Если в него передать другие параметры, она этого сделать не сможет
 class RefreshDataWorker(
     context: Context,
     workerParameters: WorkerParameters,
@@ -41,6 +39,25 @@ class RefreshDataWorker(
         fun makeRequest(): OneTimeWorkRequest {
             return OneTimeWorkRequestBuilder<RefreshDataWorker>()
                 .build()
+        }
+    }
+
+    class Factory @Inject constructor(
+        private val apiService: ApiService,
+        private val coinInfoDao: CoinInfoDao,
+        private val mapper: CoinMapper
+    ) : ChildWorkerFactory {
+        override fun create(
+            context: Context,
+            workerParameters: WorkerParameters
+        ): ListenableWorker {
+            return RefreshDataWorker(
+                context,
+                workerParameters,
+                apiService,
+                coinInfoDao,
+                mapper
+            )
         }
     }
 }

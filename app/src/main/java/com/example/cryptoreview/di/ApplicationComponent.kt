@@ -11,7 +11,8 @@ import dagger.Component
 @Component(modules = [
     DomainModule::class,
     DataModule::class,
-    ViewModelModule::class
+    ViewModelModule::class,
+    WorkerModule::class
 ])
 interface ApplicationComponent {
     fun inject(instance: CoinPriceListActivity)
