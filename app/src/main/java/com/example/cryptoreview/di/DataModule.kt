@@ -12,12 +12,14 @@ import dagger.Provides
 @Module
 class DataModule {
     @Provides
+    @ApplicationScope
     fun provideDao(application: Application): CoinInfoDao {
         return AppDatabase.getInstance(application).coinPriceInfoDao()
     }
 
     companion object {
         @Provides
+        @ApplicationScope
         fun provideApiService(): ApiService {
             return ApiFactory.apiService
         }

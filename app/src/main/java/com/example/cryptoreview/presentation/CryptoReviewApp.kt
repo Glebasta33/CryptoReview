@@ -7,8 +7,13 @@ import com.example.cryptoreview.data.mappers.CoinMapper
 import com.example.cryptoreview.data.network.ApiFactory
 import com.example.cryptoreview.data.services.RefreshDataWorkerFactory
 import com.example.cryptoreview.di.DaggerApplicationComponent
+import javax.inject.Inject
 
 class CryptoReviewApp : Application(), Configuration.Provider {
+
+    @Inject
+    lateinit var workerFactory: RefreshDataWorkerFactory
+
     val component by lazy {
         DaggerApplicationComponent.factory()
             .create(this)
@@ -16,10 +21,11 @@ class CryptoReviewApp : Application(), Configuration.Provider {
 
     override fun getWorkManagerConfiguration(): Configuration {
         return Configuration.Builder()
-            .setWorkerFactory(RefreshDataWorkerFactory(
-                ApiFactory.apiService,
-                AppDatabase.getInstance(this).coinPriceInfoDao(),
-                CoinMapper()
-            )).build()
+            .setWorkerFactory(workerFactory).build()
+    }
+
+    override fun onCreate() {
+        component.inject(this)
+        super.onCreate()
     }
 }
